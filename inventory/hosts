@@ -1,4 +1,5 @@
 [japan]
+192.168.238.145
 
 [russia]
 
@@ -9,3 +10,9 @@
 [germany]
 
 [spain]
+
+[rome]
+
+[japan:vars]
+ansible_user=groot
+ansible_password=toor

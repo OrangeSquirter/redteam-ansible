@@ -1,0 +1,9 @@
+- hosts: "{{ variable_hosts }}"
+  tasks:
+  - name: Ansible find users per country
+    find:
+      paths: /home
+      file_type: directory
+    register: files_matched
+  - debug:
+      msg: "{{ files_matched }}"
