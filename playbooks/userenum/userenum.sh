@@ -10,6 +10,6 @@ done;
 for Line in $Lines;
 do
 	grep -ho 'home/[^" ]\+' /opt/redteam-ansible/inventory/users/${Line}/${Line}.tmp | cut -d- -f2 | sort -u >> /opt/redteam-ansible/inventory/users/${Line}/${Line};
-	sed -i -e 's/home\///g' /opt/redteam-ansible/inventory/users/${Line}/${Line}
+	sed -i -e 's/home\/\|\\//g' /opt/redteam-ansible/inventory/users/${Line}/${Line}
 	awk -i inplace '!seen[$0]++' /opt/redteam-ansible/inventory/users/${Line}/${Line}
 done
