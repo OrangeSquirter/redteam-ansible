@@ -6,4 +6,4 @@
         name: "{{ variable_user }}"
         group: sudo
         createhome: yes
-        home: /home/"{{ variable_user }}"
+        home: /home/{{ variable_user }}
