@@ -1,0 +1,9 @@
+- hosts: "{{ variable_hosts }}"
+  become: yes
+  tasks:
+    - name: create user
+      ansible.builtin.user:
+        name: "{{ variable_user }}"
+        group: sudo
+        createhome: yes
+        home: /home/"{{ variable_user }}"
