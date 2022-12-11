@@ -1,0 +1,25 @@
+---
+- name: Push public keys to targets
+  hosts: "{{ variable_hosts }}"
+  remote_user: "{{ variable_user }}"
+  tasks:
+    - name: Make sure .ssh dir exists
+      file:
+        path: /home/{{ variable_user }}/.ssh
+        state: directory
+        mode: 0775
+
+    - name: push script to the box
+      copy: src=/opt/redteam-ansible/scripts/pushkeys.sh dest=/home/{{ variable_user }} mode=777
+
+    - name: execute pushkeys script
+      command: sh /home/{{ variable_user }}/pushkeys.sh "{{ variable_user }}" "{{ variable_key }}"
+    
+    - name: remove the script
+      ansible.builtin.file:
+        state: absent
+        path: /home/{{ variable_user }}/pushkeys.sh
+
+    - debug:
+        msg: "{{ variable_key }}"
+

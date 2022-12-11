@@ -17,6 +17,9 @@ do
 			printf "keys exist for $temp. \n";
 		else
 			ssh-keygen -t rsa -C "$temp@$Line" -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp} -P "" &> /dev/null
+			mv /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.tmp
+			sed -e 's/ /_/g' /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.tmp > /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub
+			rm -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.tmp
 		fi;
 	done;
 done;
