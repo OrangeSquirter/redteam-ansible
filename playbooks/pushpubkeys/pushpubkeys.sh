@@ -10,6 +10,6 @@ do
 		temp="$(echo "$User"|tr -d '\n')"
                 temp="$(echo "$temp"|tr -d \'\")"
 		userkey=$(<"/opt/redteam-ansible/inventory/users/$Line/keys/$temp/$temp.pub")
-                ansible-playbook /opt/redteam-ansible/playbooks/pushpubkeys/pushpubkeys.yaml -i /opt/redteam-ansible/inventory/hosts --extra-vars "variable_hosts=${Line} variable_user=${temp} variable_key=${userkey}";
+                ansible-playbook /opt/redteam-ansible/playbooks/pushpubkeys/pushpubkeys.yaml --key-file /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub.normal -i /opt/redteam-ansible/inventory/hosts --extra-vars "variable_hosts=${Line} variable_user=${temp} variable_key=${userkey}";
 	done;
 done;
