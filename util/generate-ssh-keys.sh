@@ -16,10 +16,18 @@ do
 		if test -f "/opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}"; then
 			printf "keys exist for $temp. \n";
 		else
+			printf "Generating keys for $temp@$Line.\n"
 			ssh-keygen -t rsa -C "$temp@$Line" -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp} -P "" &> /dev/null
 			mv /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub.normal
 			sed -e 's/ /_/g' /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub.normal > /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub
 		fi;
-		touch /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
+		if [ ! -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password ]; then
+			# Add default password of password1!
+			echo "Adding default password of password1!"
+			echo 'password1!' > /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
+		else
+			echo "password exists for ${temp}: "
+			cat /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
+		fi;
 	done;
 done;

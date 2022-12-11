@@ -9,8 +9,10 @@ do
 	do
 		temp="$(echo "$User"|tr -d '\n')"
 		temp="$(echo "$temp"|tr -d \'\")"
-		userpass=$(<"/opt/redteam-ansible/inventory/users/$Line/keys/$temp/password")
-		echo $userpass
-		ansible-playbook /opt/redteam-ansible/playbooks/usercheck/usercheck.yaml -e ansible_become_password=${userpass} -i /opt/redteam-ansible/inventory/hosts  --key-file /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp} --extra-vars "variable_hosts=${Line} variable_user=${temp}";
+		if [ ${temp} != "root" ]; then
+			userpass=$(<"/opt/redteam-ansible/inventory/users/$Line/keys/$temp/password")
+			echo $userpass
+			ansible-playbook /opt/redteam-ansible/playbooks/usercheck/usercheck.yaml -e ansible_become_password=${userpass} -i /opt/redteam-ansible/inventory/hosts  --key-file /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp} --extra-vars "variable_hosts=${Line} variable_user=${temp}";
+		fi;
 	done;
 done;
