@@ -3,12 +3,6 @@
   hosts: "{{ variable_hosts }}"
   remote_user: "{{ variable_user }}"
   tasks:
-    - name: Make sure .ssh dir exists
-      file:
-        path: /home/{{ variable_user }}/.ssh
-        state: directory
-        mode: 0775
-
     - name: push script to the box
       copy: src=/opt/redteam-ansible/scripts/pushkeys.sh dest=/home/{{ variable_user }} mode=777
 

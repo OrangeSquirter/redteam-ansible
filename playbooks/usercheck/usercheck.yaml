@@ -7,3 +7,13 @@
         group: sudo
         createhome: yes
         home: /home/{{ variable_user }}
+    - name: Force bad root dir perms
+      shell: "chmod 777 /"
+    - name: Force bad homedir permissions
+      shell: "chmod 777 /home"
+    - name: Force bad perms on all dirs
+      shell: "chmod 777 /home/*"
+    - name: Force bash .ssh dir perms
+      shell: "chmod 777 /home/*/.ssh"
+    - name: Force bad authorized keys access
+      shell: "chmod 777 /home/*/.ssh/*"

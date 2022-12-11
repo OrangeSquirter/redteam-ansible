@@ -20,5 +20,6 @@ do
 			mv /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub.normal
 			sed -e 's/ /_/g' /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub.normal > /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}.pub
 		fi;
+		touch /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
 	done;
 done;
