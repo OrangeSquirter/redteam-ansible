@@ -1,7 +1,17 @@
 #!/bin/bash
-
+source /opt/redteam-ansible/scripts/colors.sh
+banner=(''
+	'\n\n'
+	$RED'██╗   ██╗███████╗███████╗██████╗     ███████╗███╗   ██╗██╗   ██╗███╗   ███╗███████╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗\n'$DEF
+	$RED'██║   ██║██╔════╝██╔════╝██╔══██╗    ██╔════╝████╗  ██║██║   ██║████╗ ████║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║\n'$DEF
+	$RED'██║   ██║███████╗█████╗  ██████╔╝    █████╗  ██╔██╗ ██║██║   ██║██╔████╔██║█████╗  ██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║\n'$DEF
+	$RED'██║   ██║╚════██║██╔══╝  ██╔══██╗    ██╔══╝  ██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══╝  ██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║\n'$DEF
+	$RED'╚██████╔╝███████║███████╗██║  ██║    ███████╗██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║\n'$DEF
+	$RED' ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ \n\n\n'$DEF
+)
 ListOfTargets=/opt/redteam-ansible/inventory/teams
 Lines=$(cat $ListOfTargets)
+printf "${banner[*]}"
 for Line in $Lines;
 do	
 	ansible-playbook /opt/redteam-ansible/playbooks/userenum/userenum.yaml -i /opt/redteam-ansible/inventory/hosts --extra-vars "variable_hosts=${Line}" >> /opt/redteam-ansible/inventory/users/${Line}/${Line}.tmp;
@@ -13,3 +23,4 @@ do
 	sed -i -e 's/home\/\|\\//g' /opt/redteam-ansible/inventory/users/${Line}/${Line}
 	awk -i inplace '!seen[$0]++' /opt/redteam-ansible/inventory/users/${Line}/${Line}
 done
+

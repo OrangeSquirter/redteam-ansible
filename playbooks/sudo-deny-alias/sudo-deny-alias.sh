@@ -1,5 +1,14 @@
 #!/bin/bash
-
+source /opt/redteam-ansible/scripts/colors.sh
+banner=('\n\n'
+        $RED"███████╗██╗   ██╗██████╗  ██████╗     ████████╗██████╗  ██████╗ ██╗     ██╗     \n"$DEF
+	$RED"██╔════╝██║   ██║██╔══██╗██╔═══██╗    ╚══██╔══╝██╔══██╗██╔═══██╗██║     ██║     \n"$DEF
+	$RED"███████╗██║   ██║██║  ██║██║   ██║       ██║   ██████╔╝██║   ██║██║     ██║     \n"$DEF
+	$RED"╚════██║██║   ██║██║  ██║██║   ██║       ██║   ██╔══██╗██║   ██║██║     ██║     \n"$DEF
+	$RED"███████║╚██████╔╝██████╔╝╚██████╔╝       ██║   ██║  ██║╚██████╔╝███████╗███████╗\n"$DEF
+	$RED"╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝        ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝\n"$DEF      
+)
+printf "${banner[*]}"
 PLAYBOOKNAME=sudo-deny-alias
 ListOfTargets=/opt/redteam-ansible/inventory/teams
 Lines=$(cat $ListOfTargets)
