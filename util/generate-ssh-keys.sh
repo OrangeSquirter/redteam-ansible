@@ -26,7 +26,7 @@ do
                 temp="$(echo "$temp"|tr -d \'\")"
 		mkdir /opt/redteam-ansible/inventory/users/${Line}/keys/${temp} &> /dev/null
 		if test -f "/opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp}"; then
-			printf $CYN"keys exist for $temp. \n"$DEF;
+			printf $CYN"keys exist for $temp@$Line. \n"$DEF;
 		else
 			printf $BRED"Generating keys for $temp@$Line.\n"$DEF
 			ssh-keygen -t rsa -C "$temp@$Line" -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/${temp} -P "" &> /dev/null
@@ -35,10 +35,10 @@ do
 		fi;
 		if [ ! -f /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password ]; then
 			# Add default password of password1!
-			printf $BRED"Adding default password of password1!"$DEF
+			printf $BRED"Adding default password of password1!\n"$DEF
 			echo 'password1!' > /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
 		else
-			printf $GRN"password exists for ${temp}: "$DEF
+			printf $GRN"password exists for ${temp}@${Line}: "$DEF
 			cat /opt/redteam-ansible/inventory/users/${Line}/keys/${temp}/password
 		fi;
 	done;
